@@ -1,6 +1,9 @@
 <template>
     <section class="line-chart">
-        <section class="left">123</section>
+        <section class="left">
+            <section class="title">配置项</section>
+            <section class="content"></section>
+        </section>
         <section ref="rightView" class="right">
             <base-line ref="line" :id="'lineChart'" :width="rightWidth" :height="rightHeight"></base-line>
         </section>
@@ -19,10 +22,6 @@ onMounted(() => {
     rightWidth.value = rightView.value?.clientWidth + 'px'
     rightHeight.value = rightView.value?.clientHeight + 'px'
 })
-console.log({
-    rightWidth,
-    rightHeight
-});
 
 </script>
 
@@ -38,6 +37,13 @@ console.log({
         width: 200px;
         height: 100%;
         border-right: 1px solid var(--border-color);
+        color: var(--label-color);
+
+        .title {
+            font-weight: 600;
+            cursor: default;
+            line-height: 20px;
+        }
     }
 
     .right {
