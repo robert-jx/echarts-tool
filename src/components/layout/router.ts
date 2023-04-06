@@ -1,6 +1,6 @@
 export const menu = [
     {
-        name: '用户管理',
+        name: '折线图',
         icon: '',
         path: '/user-manage',
         children: [
@@ -17,7 +17,7 @@ export const menu = [
         ]
     },
     {
-        name: '权限管理', icon: '',
+        name: '柱状图', icon: '',
         path: '/role-manage',
         children: [
             {
@@ -28,7 +28,7 @@ export const menu = [
         ]
     },
     {
-        name: '商品管理', icon: '',
+        name: '饼图', icon: '',
         path: '/goods-manage',
         children: [
             { name: '商品列表', icon: '', path: '/goods-manage/list' },
@@ -38,14 +38,14 @@ export const menu = [
         ]
     },
     {
-        name: '订单管理', icon: '',
+        name: '雷达图', icon: '',
         path: '/order-manage',
         children: [
             { name: '订单列表', icon: '', path: '/order-manage/list' }
         ]
     },
     {
-        name: '数据统计', icon: '',
+        name: '仪表盘', icon: '',
         path: '/data-statistics',
         children: [
             { name: '订单统计', icon: '', path: '/data-statistics/order' },
