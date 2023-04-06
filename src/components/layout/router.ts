@@ -2,17 +2,12 @@ export const menu = [
     {
         name: '折线图',
         icon: '',
-        path: '/user-manage',
+        path: '/line-chart',
         children: [
             {
-                name: '用户列表',
+                name: '折线图',
                 icon: '',
-                path: '/user-manage/list'
-            },
-            {
-                name: '用户类型',
-                icon: '',
-                path: '/user-manage/type'
+                path: '/line-chart/index'
             }
         ]
     },

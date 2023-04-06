@@ -9,6 +9,20 @@ let routes = [
         //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
         component: Layout
     },
+    // 折线图
+    {
+        path: '/line-chart',
+        name: 'line-chart',
+        component: Layout,
+        redirect: '/line-chart/index',
+        children: [
+            {
+                path: '/line-chart/index',
+                name: 'line-chart-index',
+                component: () => import('@/view/line-chart/index.vue')
+            }
+        ]
+    },
     //{
     //配置404页面
     //path: '/:catchAll(.*)',

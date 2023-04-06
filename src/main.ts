@@ -12,14 +12,9 @@ import 'element-plus/dist/index.css'
 import '@/assets/css/common.scss'
 // 引入动画库
 import "animate.css"
-//引入echarts
-import * as echarts from 'echarts';
 
 const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(ElementPlus)
-
-
-app.config.globalProperties.$echarts = echarts
 app.mount('#app')
