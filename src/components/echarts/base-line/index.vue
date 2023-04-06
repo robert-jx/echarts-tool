@@ -6,28 +6,28 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts';
-import { onMounted } from 'vue';
+import { onMounted, watch, nextTick } from 'vue';
+export interface Props {
+    id?: string;// 绑定的容器id，每次调用需输入不同的id
+    width?: string;// 容器宽度
+    height?: string;// 容器高度
+    title?: string;// 面板标题
+    //内容位置
+    left?: string;
+    right?: string;
+    top?: string;
+    bottom?: string;
+    //-------
+    smooth?: boolean;// 折线是否平滑
+    boundaryGap?: boolean;// 横坐标是否对齐格子中间
+    isArea?: boolean;// 是否开启面积展示
+    isStack?: boolean;// 是否堆叠
+    timeLabel?: any;// x轴数据
+    dataList?: any;// y轴数据
+
+}
 const props = withDefaults(
-    defineProps<{
-        id?: string;// 绑定的容器id，每次调用需输入不同的id
-        width?: string;// 容器宽度
-        height?: string;// 容器高度
-        title?: string;// 面板标题
-        //内容位置
-        left?: string;
-        right?: string;
-        top?: string;
-        bottom?: string;
-        //-------
-        smooth?: boolean;// 折线是否平滑
-        boundaryGap?: boolean;// 横坐标是否对齐格子中间
-        isArea?: boolean;// 是否开启面积展示
-        isStack?: boolean;// 是否堆叠
-        timeLabel?: any;// x轴数据
-        dataList?: any;// y轴数据
-
-
-    }>(),
+    defineProps<Props>(),
     {
         id: 'main',
         width: '1000px',
@@ -102,10 +102,33 @@ const init = () => {
     let myChart = echarts.init(chartDom);
     option && myChart.setOption(option);
 }
+const reset = () => {
+    let chartDom: any = document.getElementById(props.id);
+    let myChart = echarts.init(chartDom);
+    myChart.clear();
+    option && myChart.setOption(option);
+}
 
 // 挂载
 onMounted(() => {
-    init();
+    nextTick(() => {
+        init();
+    })
+})
+watch(
+    () => props.width,
+    (newVal, oldVal) => {
+        console.log('监听基本类型数据testStr')
+        console.log('new', newVal)
+        console.log('old', oldVal)
+        // nextTick(() => {
+        //     init();
+        // })
+    }
+)
+defineExpose({
+    init,
+    reset
 })
 
 </script>

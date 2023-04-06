@@ -1,14 +1,29 @@
 <template>
     <section class="line-chart">
         <section class="left">123</section>
-        <section class="right">
-            <base-line :id="'lineChart'"></base-line>
+        <section ref="rightView" class="right">
+            <base-line ref="line" :id="'lineChart'" :width="rightWidth" :height="rightHeight"></base-line>
         </section>
     </section>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import baseLine from '@/components/echarts/base-line/index.vue'
+const rightView = ref<HTMLElement>()
+const line = ref(null)
+
+const rightWidth = ref('0px')
+const rightHeight = ref('0px')
+onMounted(() => {
+    rightWidth.value = rightView.value?.clientWidth + 'px'
+    rightHeight.value = rightView.value?.clientHeight + 'px'
+})
+console.log({
+    rightWidth,
+    rightHeight
+});
+
 </script>
 
 <style lang="scss" scoped>
