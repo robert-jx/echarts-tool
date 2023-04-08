@@ -37,6 +37,34 @@ let routes = [
             }
         ]
     },
+    // 饼图
+    {
+        path: '/pie-chart',
+        name: 'pie-chart',
+        component: Layout,
+        redirect: '/pie-chart/index',
+        children: [
+            {
+                path: '/pie-chart/index',
+                name: 'pie-chart-index',
+                component: () => import('@/view/pie-chart/index.vue')
+            }
+        ]
+    },
+    // 雷达图
+    {
+        path: '/radar-chart',
+        name: 'radar-chart',
+        component: Layout,
+        redirect: '/radar-chart/index',
+        children: [
+            {
+                path: '/radar-chart/index',
+                name: 'radar-chart-index',
+                component: () => import('@/view/radar-chart/index.vue')
+            }
+        ]
+    },
     //{
     //配置404页面
     //path: '/:catchAll(.*)',

@@ -24,28 +24,26 @@ export const menu = [
     },
     {
         name: '饼图', icon: '',
-        path: '/goods-manage',
+        path: '/pie-chart',
         children: [
-            { name: '商品列表', icon: '', path: '/goods-manage/list' },
-            { name: '分类参数', icon: '', path: '/goods-manage/type' },
-            { name: '商品分类', icon: '', path: '/goods-manage/commodity' },
+            { name: '饼图', icon: '', path: '/pie-chart/index' }
 
         ]
     },
     {
         name: '雷达图', icon: '',
-        path: '/order-manage',
+        path: '/radar-chart',
         children: [
-            { name: '订单列表', icon: '', path: '/order-manage/list' }
+            { name: '雷达图', icon: '', path: '/radar-chart/index' }
         ]
     },
-    {
-        name: '仪表盘', icon: '',
-        path: '/data-statistics',
-        children: [
-            { name: '订单统计', icon: '', path: '/data-statistics/order' },
-            { name: '日志统计', icon: '', path: '/data-statistics/log' },
-        ]
-    },
+    // {
+    //     name: '仪表盘', icon: '',
+    //     path: '/data-statistics',
+    //     children: [
+    //         { name: '订单统计', icon: '', path: '/data-statistics/order' },
+    //         { name: '日志统计', icon: '', path: '/data-statistics/log' },
+    //     ]
+    // },
 
 ]
