@@ -13,12 +13,12 @@ export const menu = [
     },
     {
         name: '柱状图', icon: '',
-        path: '/role-manage',
+        path: '/bar-chart',
         children: [
             {
-                name: '权限列表',
+                name: '柱状图',
                 icon: '',
-                path: '/role-manage/list'
+                path: '/bar-chart/index'
             }
         ]
     },

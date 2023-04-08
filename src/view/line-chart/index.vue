@@ -12,6 +12,18 @@
                     </section>
                 </section>
                 <section class="left-item">
+                    <section class="item-title">是否展示统计内容</section>
+                    <section class="item-content">
+                        <el-switch v-model="data.legend"></el-switch>
+                    </section>
+                </section>
+                <section class="left-item">
+                    <section class="item-title">是否与刻度对齐</section>
+                    <section class="item-content">
+                        <el-switch v-model="data.boundaryGap"></el-switch>
+                    </section>
+                </section>
+                <section class="left-item">
                     <section class="item-title">是否平滑</section>
                     <section class="item-content">
                         <el-switch v-model="data.smooth" />
@@ -47,7 +59,7 @@
         </section>
         <section ref="rightView" class="right">
             <base-line ref="line" :id="'lineChart'" :title="data.title" :width="rightWidth" :height="rightHeight"
-                :smooth="data.smooth" :boundaryGap="data.boundaryGap" :isArea="data.isArea"
+                :smooth="data.smooth" :legend="data.legend" :boundaryGap="data.boundaryGap" :isArea="data.isArea"
                 :isStack="data.isStack"></base-line>
         </section>
     </section>
@@ -61,6 +73,7 @@ export interface dataProps {
     title?: string,
     smooth?: boolean,
     boundaryGap?: boolean,
+    legend?: boolean,
     isArea?: boolean,
     isStack?: boolean,
     markPoint?: boolean,
@@ -83,6 +96,7 @@ let data: dataProps = reactive({
     title: '标题',
     smooth: false,
     boundaryGap: true,
+    legend: true,
     isArea: false,
     isStack: false,
     markPoint: true,

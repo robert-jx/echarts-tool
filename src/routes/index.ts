@@ -23,6 +23,20 @@ let routes = [
             }
         ]
     },
+    // 柱状图
+    {
+        path: '/bar-chart',
+        name: 'bar-chart',
+        component: Layout,
+        redirect: '/bar-chart/index',
+        children: [
+            {
+                path: '/bar-chart/index',
+                name: 'bar-chart-index',
+                component: () => import('@/view/bar-chart/index.vue')
+            }
+        ]
+    },
     //{
     //配置404页面
     //path: '/:catchAll(.*)',

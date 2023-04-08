@@ -18,11 +18,11 @@ export interface Props {
     top?: string;
     bottom?: string;
     //-------
-    smooth?: boolean;// 折线是否平滑
-    boundaryGap?: boolean;// 横坐标是否对齐格子中间
-    legend?: boolean;//是否展示统计内容
-    isArea?: boolean;// 是否开启面积展示
-    isStack?: boolean;// 是否堆叠
+    alignWithLabel?: boolean;// 横坐标是否对齐格子中间
+    showBackground?: boolean;//是否展示背景
+    isBroadwise?: boolean;//是否横向
+    isStack?: boolean;// 是否开启面积展示
+    legend?: boolean;// 是否展示统计内容
     markPoint?: boolean;//是否展示最高最低点
     markLine?: boolean;//是否展示markline
     timeLabel?: any;// x轴数据
@@ -40,17 +40,23 @@ const props = withDefaults(
         right: '4%',
         top: '13%',
         bottom: '3%',
-        smooth: true,
-        boundaryGap: true,
-        legend: true,
-        isArea: true,
+        showBackground: true,
+        alignWithLabel: true,
+        isBroadwise: true,
         isStack: true,
+        legend: true,
         markPoint: true,
         markLine: true,
         timeLabel: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         dataList: [
-            { name: 'Phone', data: [150, 230, 224, 218, 135, 147, 260] },
-            { name: 'Email', data: [120, 132, 101, 134, 90, 230, 210] },
+            {
+                data: [150, 230, 224, 218, 135, 147, 260],
+                name: 'Phone'
+            },
+            {
+                name: 'Direct',
+                data: [320, 332, 301, 334, 390, 330, 320]
+            }
         ]
     }
 );
@@ -69,6 +75,7 @@ const reset = () => {
     option && myChart.setOption(option);
 }
 const getOption = () => {
+
     let obj = {
         // 面板标题
         title: {
@@ -105,13 +112,16 @@ const getOption = () => {
         },
         legend: props.legend ? {
             data: props.dataList.map((v: any) => {
-                return v.name;
+                return v.name
             })
         } : null,
         xAxis: {
             type: 'category',
-            boundaryGap: !props.boundaryGap,
-            data: props.timeLabel
+            data: props.timeLabel,
+
+            axisTick: {
+                alignWithLabel: props.alignWithLabel
+            }
         },
         yAxis: {
             type: 'value'
@@ -120,10 +130,14 @@ const getOption = () => {
             return {
                 name: v.name,
                 data: v.data,
-                type: 'line',
-                smooth: props.smooth,
-                stack: props.isStack ? 'Total' : null,
-                areaStyle: props.isArea ? {} : null,
+                type: 'bar',
+                showBackground: props.showBackground,
+
+                backgroundStyle: props.showBackground ? {
+                    color: 'rgba(180, 180, 180, 0.2)'
+                } : null,
+
+                stack: props.isStack ? 'Ad' : null,
                 markPoint: props.markPoint ? {
                     data: [
                         { type: 'max', name: 'Max' },
@@ -136,7 +150,12 @@ const getOption = () => {
             }
         })
     }
-    return obj;
+    if (props.isBroadwise) {
+        let temp = obj.xAxis;
+        (obj.xAxis as any) = obj.yAxis;
+        obj.yAxis = temp
+    }
+    return obj
 }
 
 // 挂载
