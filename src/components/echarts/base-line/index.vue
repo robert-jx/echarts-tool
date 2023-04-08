@@ -22,6 +22,8 @@ export interface Props {
     boundaryGap?: boolean;// 横坐标是否对齐格子中间
     isArea?: boolean;// 是否开启面积展示
     isStack?: boolean;// 是否堆叠
+    markPoint?: boolean;//是否展示最高最低点
+    markLine?: boolean;//是否展示markline
     timeLabel?: any;// x轴数据
     dataList?: any;// y轴数据
 
@@ -41,77 +43,96 @@ const props = withDefaults(
         boundaryGap: true,
         isArea: true,
         isStack: true,
+        markPoint: true,
+        markLine: true,
         timeLabel: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         dataList: [{ data: [150, 230, 224, 218, 135, 147, 260], name: '' }]
     }
 );
 // 配置项
-let option = {
-    // 面板标题
-    title: {
-        text: props.title
-    },
-    // 悬浮展示面板
-    tooltip: {
-        trigger: 'axis',
-        // 悬浮时定位的线
-        axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
-        }
-    },
-    // 内容位置
-    grid: {
-        left: props.left,
-        right: props.right,
-        top: props.top,
-        bottom: props.bottom,
-        containLabel: true
-    },
-    // 工具箱
-    toolbox: {
-        feature: {
-            saveAsImage: {}
-        }
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: props.boundaryGap,
-        data: props.timeLabel
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: props.dataList.map((v: any) => {
-        return {
-            name: v.name,
-            data: v.data,
-            type: 'line',
-            smooth: props.smooth,
-            stack: props.isStack ? 'Total' : null,
-            areaStyle: props.isArea ? {} : null
-        }
-    })
-};
-
+let option = {}
+let chartDom: any = null;
+let myChart: any = null;
 // 初始化
 const init = () => {
-    let chartDom: any = document.getElementById(props.id);
-    let myChart = echarts.init(chartDom);
+    option = getOption();
     option && myChart.setOption(option);
 }
 const reset = () => {
-    let chartDom: any = document.getElementById(props.id);
-    let myChart = echarts.init(chartDom);
+    option = getOption();
     myChart.clear();
     option && myChart.setOption(option);
+}
+const getOption = () => {
+    return {
+        // 面板标题
+        title: {
+            text: props.title
+        },
+        // 悬浮展示面板
+        tooltip: {
+            trigger: 'axis',
+            // 悬浮时定位的线
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        // 内容位置
+        grid: {
+            left: props.left,
+            right: props.right,
+            top: props.top,
+            bottom: props.bottom,
+            containLabel: true
+        },
+        // 工具箱
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: { readOnly: true },
+                magicType: { type: ['line', 'bar'] },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: props.boundaryGap,
+            data: props.timeLabel
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: props.dataList.map((v: any) => {
+            return {
+                name: v.name,
+                data: v.data,
+                type: 'line',
+                smooth: props.smooth,
+                stack: props.isStack ? 'Total' : null,
+                areaStyle: props.isArea ? {} : null,
+                markPoint: props.markPoint ? {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                } : null,
+                markLine: props.markLine ? {
+                    data: [{ type: 'average', name: 'Avg' }]
+                } : null
+            }
+        })
+    }
 }
 
 // 挂载
 onMounted(() => {
     nextTick(() => {
+        chartDom = document.getElementById(props.id)
+        myChart = echarts.init(chartDom);
         init();
     })
 })
