@@ -51,17 +51,17 @@ let routes = [
             }
         ]
     },
-    // 雷达图
+    // 仪表盘
     {
-        path: '/radar-chart',
-        name: 'radar-chart',
+        path: '/dashboard',
+        name: 'dashboard',
         component: Layout,
-        redirect: '/radar-chart/index',
+        redirect: '/dashboard/index',
         children: [
             {
-                path: '/radar-chart/index',
-                name: 'radar-chart-index',
-                component: () => import('@/view/radar-chart/index.vue')
+                path: '/dashboard/index',
+                name: 'dashboard-index',
+                component: () => import('@/view/dashboard/index.vue')
             }
         ]
     },

@@ -37,13 +37,12 @@ export const menu = [
             { name: '雷达图', icon: '', path: '/radar-chart/index' }
         ]
     },
-    // {
-    //     name: '仪表盘', icon: '',
-    //     path: '/data-statistics',
-    //     children: [
-    //         { name: '订单统计', icon: '', path: '/data-statistics/order' },
-    //         { name: '日志统计', icon: '', path: '/data-statistics/log' },
-    //     ]
-    // },
+    {
+        name: '仪表盘', icon: '',
+        path: '/dashboard',
+        children: [
+            { name: '仪表盘', icon: '', path: '/dashboard/index' },
+        ]
+    },
 
 ]

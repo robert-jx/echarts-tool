@@ -24,11 +24,18 @@
                     </section>
                 </section>
 
+                <section class="left-item">
+                    <section class="item-title">是否为圆形</section>
+                    <section class="item-content">
+                        <el-switch v-model="data.shape" />
+                    </section>
+                </section>
+
             </section>
         </section>
         <section ref="rightView" class="right">
             <base-radar ref="pie" :id="'pieChart'" :title="data.title" :subtext="data.subtext" :width="rightWidth"
-                :height="rightHeight" :legend="data.legend"></base-radar>
+                :height="rightHeight" :legend="data.legend" :shape="data.shape ? 'circle' : ''"></base-radar>
         </section>
     </section>
 </template>
@@ -41,6 +48,7 @@ export interface dataProps {
     title?: string,
     subtext?: string,
     legend?: boolean,
+    shape?: boolean,
 }
 
 const rightView = ref<HTMLElement>()
@@ -59,6 +67,7 @@ let data: dataProps = reactive({
     title: '标题',
     subtext: '副标题',
     legend: true,
+    shape: false
 });
 const setEcharts = () => {
     nextTick(() => {

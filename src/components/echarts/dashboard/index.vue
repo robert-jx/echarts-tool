@@ -1,5 +1,5 @@
 <template>
-    <section class="base-line">
+    <section class="dashboard">
         <div :id="id" :style="{ 'width': width, 'height': height }"></div>
     </section>
 </template>
@@ -19,9 +19,7 @@ export interface Props {
     top?: string;
     bottom?: string;
     //-------
-    legend?: boolean;// 是否展示统计内容
-    shape?: string;// 形状
-    indicator?: any;//极值
+    valueAnimation?: boolean;// 是否开启动画
     dataList?: any;// 数据
 
 }
@@ -31,22 +29,13 @@ const props = withDefaults(
         id: 'main',
         width: '1000px',
         height: '600px',
-        title: 'base-line',
+        title: 'dashboard',
         subtext: 'Fake Data',
         left: '3%',
         right: '4%',
         top: '13%',
         bottom: '3%',
-        legend: true,
-        shape: '',
-        indicator: [
-            { name: 'Sales', max: 6500 },
-            { name: 'Administration', max: 16000 },
-            { name: 'Information Technology', max: 30000 },
-            { name: 'Customer Support', max: 38000 },
-            { name: 'Development', max: 52000 },
-            { name: 'Marketing', max: 25000 }
-        ],
+        valueAnimation: true,
         dataList: [
             {
                 value: [4200, 3000, 20000, 35000, 50000, 18000],
@@ -83,8 +72,9 @@ const getOption = () => {
         },
         // 悬浮展示面板
 
+
         tooltip: {
-            trigger: 'item'
+            formatter: '{a} <br/>{b} : {c}%'
         },
         // 内容位置
         grid: {
@@ -92,26 +82,25 @@ const getOption = () => {
             right: props.right,
             top: props.top,
             bottom: props.bottom,
-            containLabel: true
-        },
-        legend: props.legend ? {
-            data: props.dataList.map((v: any) => {
-                return v.name
-            })
-        } : null,
-
-        radar: {
-            // shape: 'circle',
-            indicator: props.indicator,
-
-            shape: props.shape != '' ? props.shape : null
         },
         series: [
             {
+                name: 'Pressure',
+                type: 'gauge',
 
-                name: 'Budget vs spending',
-                data: props.dataList,
-                type: 'radar',
+                progress: {
+                    show: props.valueAnimation
+                },
+                detail: {
+                    formatter: '{value}',
+                    valueAnimation: props.valueAnimation,
+                },
+                data: [
+                    {
+                        value: 50,
+                        name: 'SCORE'
+                    }
+                ]
             }
         ]
     }
@@ -145,7 +134,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.base-line {
+.dashboard {
     width: 100%;
     height: 100%;
 }
