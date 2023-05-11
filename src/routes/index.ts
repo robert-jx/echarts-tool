@@ -48,6 +48,12 @@ let routes = [
                 path: '/pie-chart/index',
                 name: 'pie-chart-index',
                 component: () => import('@/view/pie-chart/index.vue')
+            },
+
+            {
+                path: '/pie-chart/nightingale',
+                name: 'pie-chart-nightingale',
+                component: () => import('@/view/pie-chart/nightingale/index.vue')
             }
         ]
     },

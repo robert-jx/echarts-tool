@@ -26,7 +26,8 @@ export const menu = [
         name: '饼图', icon: '',
         path: '/pie-chart',
         children: [
-            { name: '饼图', icon: '', path: '/pie-chart/index' }
+            { name: '饼图', icon: '', path: '/pie-chart/index' },
+            { name: '南丁格尔玫瑰图', icon: '', path: '/pie-chart/nightingale' },
 
         ]
     },
