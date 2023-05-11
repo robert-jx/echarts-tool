@@ -34,6 +34,12 @@ let routes = [
                 path: '/bar-chart/index',
                 name: 'bar-chart-index',
                 component: () => import('@/view/bar-chart/index.vue')
+            },
+
+            {
+                path: '/bar-chart/linear-bar',
+                name: 'bar-chart-linear-bar',
+                component: () => import('@/view/bar-chart/linear-bar/index.vue')
             }
         ]
     },

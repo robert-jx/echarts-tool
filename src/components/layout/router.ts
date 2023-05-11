@@ -19,7 +19,14 @@ export const menu = [
                 name: '柱状图',
                 icon: '',
                 path: '/bar-chart/index'
-            }
+            },
+
+            {
+                name: '渐变柱状图',
+                icon: '',
+                path: '/bar-chart/linear-bar'
+            },
+
         ]
     },
     {
