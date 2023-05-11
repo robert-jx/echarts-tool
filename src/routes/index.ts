@@ -51,6 +51,20 @@ let routes = [
             }
         ]
     },
+    // 雷达图
+    {
+        path: '/radar-chart',
+        name: 'radar-chart',
+        component: Layout,
+        redirect: '/radar-chart/index',
+        children: [
+            {
+                path: '/radar-chart/index',
+                name: 'radar-chart-index',
+                component: () => import('@/view/radar-chart/index.vue')
+            }
+        ]
+    },
     // 仪表盘
     {
         path: '/dashboard',

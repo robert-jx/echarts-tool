@@ -25,6 +25,8 @@ export interface Props {
     isStack?: boolean;// 是否堆叠
     markPoint?: boolean;//是否展示最高最低点
     markLine?: boolean;//是否展示markline
+    isLinear?: boolean;//是否渐变
+    colorList?: any;//颜色列表
     timeLabel?: any;// x轴数据
     dataList?: any;// y轴数据
 
@@ -47,6 +49,8 @@ const props = withDefaults(
         isStack: true,
         markPoint: true,
         markLine: true,
+        isLinear: true,
+        colorList: ["#00899A", "#10BA4F", '#FFB919', '#FF2C39'],
         timeLabel: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         dataList: [
             { name: 'Phone', data: [150, 230, 224, 218, 135, 147, 260] },
@@ -116,14 +120,35 @@ const getOption = () => {
         yAxis: {
             type: 'value'
         },
-        series: props.dataList.map((v: any) => {
+        series: props.dataList.map((v: any, index: number) => {
             return {
                 name: v.name,
                 data: v.data,
                 type: 'line',
                 smooth: props.smooth,
                 stack: props.isStack ? 'Total' : null,
-                areaStyle: props.isArea ? {} : null,
+                areaStyle: props.isArea ? {
+                    normal: {
+                        color: props.isLinear
+                            ? new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                {
+                                    offset: 0,
+                                    color: props.colorList[index],
+                                },
+                                {
+                                    offset: 0.1,
+                                    color: props.colorList[index],
+                                },
+                                {
+                                    offset: 1,
+                                    color: "rgba(0,0,0,0)",
+                                },
+                            ])
+                            : null,
+
+                        opacity: 0.65,
+                    }
+                } : null,
                 markPoint: props.markPoint ? {
                     data: [
                         { type: 'max', name: 'Max' },

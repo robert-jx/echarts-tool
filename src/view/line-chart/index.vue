@@ -37,6 +37,14 @@
                     </section>
                 </section>
 
+
+                <section class="left-item">
+                    <section class="item-title">是否渐变</section>
+                    <section class="item-content">
+                        <el-switch v-model="data.isLinear" />
+                    </section>
+                </section>
+
                 <section class="left-item">
                     <section class="item-title">是否堆叠</section>
                     <section class="item-content">
@@ -60,7 +68,7 @@
         <section ref="rightView" class="right">
             <base-line ref="line" :id="'lineChart'" :title="data.title" :width="rightWidth" :height="rightHeight"
                 :smooth="data.smooth" :legend="data.legend" :boundaryGap="data.boundaryGap" :isArea="data.isArea"
-                :isStack="data.isStack"></base-line>
+                :isStack="data.isStack" :isLinear="data.isLinear"></base-line>
         </section>
     </section>
 </template>
@@ -78,6 +86,7 @@ export interface dataProps {
     isStack?: boolean,
     markPoint?: boolean,
     markLine?: boolean,
+    isLinear?: boolean,
 }
 
 const rightView = ref<HTMLElement>()
@@ -94,13 +103,14 @@ onMounted(() => {
 
 let data: dataProps = reactive({
     title: '标题',
-    smooth: false,
+    smooth: true,
     boundaryGap: true,
     legend: true,
-    isArea: false,
+    isArea: true,
     isStack: false,
     markPoint: true,
     markLine: true,
+    isLinear: true,
 });
 const setEcharts = () => {
     nextTick(() => {
