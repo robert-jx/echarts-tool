@@ -26,6 +26,11 @@ export const menu = [
                 icon: '',
                 path: '/bar-chart/linear-bar'
             },
+            {
+                name: '进度条柱状图',
+                icon: '',
+                path: '/bar-chart/progress-bar'
+            }
 
         ]
     },
