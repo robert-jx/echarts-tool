@@ -58,17 +58,17 @@
             </section>
         </section>
         <section ref="rightView" class="right">
-            <base-bar ref="bar" :id="'barChart'" :title="data.title" :width="rightWidth" :height="rightHeight"
+            <progress-bar ref="bar" :id="'barChart'" :title="data.title" :width="rightWidth" :height="rightHeight"
                 :showBackground="data.showBackground" :alignWithLabel="data.alignWithLabel" :markLine="data.markLine"
                 :isStack="data.isStack" :legend="data.legend" :isBroadwise="data.isBroadwise"
-                :markPoint="data.markPoint"></base-bar>
+                :markPoint="data.markPoint"></progress-bar>
         </section>
     </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, watch, nextTick } from 'vue';
-import baseBar from '@/components/echarts/base-bar/index.vue'
+import progressBar from '@/components/echarts/progress-bar/index.vue'
 // 配置项内容
 export interface dataProps {
     title?: string,

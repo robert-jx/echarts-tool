@@ -47,16 +47,12 @@ const props = withDefaults(
         legend: true,
         markPoint: true,
         markLine: true,
-        timeLabel: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        timeLabel: ["视频设备", "门禁设备", "乘客求助", "入侵报警"],
         dataList: [
             {
-                data: [150, 230, 224, 218, 135, 147, 260],
-                name: 'Phone'
+                name: "项目",
+                data: [50, 82, 45, 50],
             },
-            {
-                name: 'Direct',
-                data: [320, 332, 301, 334, 390, 330, 320]
-            }
         ]
     }
 );
@@ -76,21 +72,60 @@ const reset = () => {
 }
 const getOption = () => {
 
+    let list: any = [];
+
+    props.dataList.forEach((v: any) => {
+        list.push({
+            name: v.name,
+            type: "bar",
+            label: {
+                show: true,
+                position: "right",
+                color: "#fff",
+                fontSize: 12,
+                offset: [0, 2],
+            },
+            zlevel: 1,
+            itemStyle: {
+                borderRadius: 30,
+                color: function (params: any) {
+                    //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                    var colorList = ["#DA70D6", "#436EEE", "#61a0a8", "#FFA54F"];
+                    return colorList[params.dataIndex];
+                },
+            },
+            barWidth: 15,
+            data: v.data,
+        });
+        list.push({
+            name: "背景",
+            type: "bar",
+            barWidth: 15,
+            barGap: "-100%",
+            data: [100, 100, 100, 100, 100, 100],
+            itemStyle: {
+                color: "rgba(224,238,238,0.3)",
+                borderRadius: 30,
+            },
+        });
+    });
+
+
     let obj = {
         // 面板标题
         title: {
             text: props.title
         },
-        // 悬浮展示面板
+
+        // 悬浮面板
         tooltip: {
-            trigger: 'axis',
-            // 悬浮时定位的线
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
+            trigger: "axis",
+
+            formatter(params: any) {
+                for (let x in params) {
+                    return params[x].name + ":" + "进度为(" + params[x].data + "%)";
                 }
-            }
+            },
         },
         // 内容位置
         grid: {
@@ -126,29 +161,7 @@ const getOption = () => {
         yAxis: {
             type: 'value'
         },
-        series: props.dataList.map((v: any) => {
-            return {
-                name: v.name,
-                data: v.data,
-                type: 'bar',
-                showBackground: props.showBackground,
-
-                backgroundStyle: props.showBackground ? {
-                    color: 'rgba(180, 180, 180, 0.2)'
-                } : null,
-
-                stack: props.isStack ? 'Ad' : null,
-                markPoint: props.markPoint ? {
-                    data: [
-                        { type: 'max', name: 'Max' },
-                        { type: 'min', name: 'Min' }
-                    ]
-                } : null,
-                markLine: props.markLine ? {
-                    data: [{ type: 'average', name: 'Avg' }]
-                } : null
-            }
-        })
+        series: list
     }
     if (props.isBroadwise) {
         let temp = obj.xAxis;
